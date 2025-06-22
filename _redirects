@@ -1,0 +1,12 @@
+/*                          /index.html                    200
+/admin/broadcast/*         /admin/broadcast/index.html    200
+/admin/content/*           /admin/content/index.html      200
+/admin/dashboard/*         /admin/dashboard/index.html    200
+/admin/export/*            /admin/export/index.html       200
+/admin/logs/*              /admin/logs/index.html         200
+/admin/users/*             /admin/users/index.html        200
+/user/activity/*           /user/activity/index.html      200
+/user/booking/*            /user/booking/index.html       200
+/user/dashboard/*          /user/dashboard/index.html     200
+/user/profile/*            /user/profile/index.html       200
+/user/upload/*             /user/upload/index.html        200
