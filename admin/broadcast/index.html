@@ -1,0 +1,18 @@
+
+<!DOCTYPE html>
+<html>
+<head><title>Broadcast</title><link rel="stylesheet" href="../../style.css" /></head>
+<body class="fade-in">
+<section>
+  <h2>📢 Broadcast Pesan</h2>
+  <textarea id="msg" placeholder="Pesan untuk semua user..."></textarea><br/><br/>
+  <button onclick="send()">Kirim</button>
+</section>
+<script>
+  function send() {
+    const pesan = document.getElementById("msg").value;
+    alert("Broadcast terkirim: " + pesan);
+  }
+</script>
+</body>
+</html>

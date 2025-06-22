@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+</head>
+<body class="fade-in" class="fade-in auth-page page-transition">
+<div class="container">
+  <h2>Login</h2>
+  <input type="text" id="username" placeholder="Username" /><br/>
+  <input type="password" id="password" placeholder="Password" /><br/>
+  
+  <p>Belum punya akun? <a href="register.html">Daftar di sini</a></p>
+
+  <script>
+    function login() {
+      const uname = document.getElementById("username").value;
+      const pword = document.getElementById("password").value;
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+      const found = users.find(u => u.username === uname && u.password === pword);
+
+      if (found) {
+      localStorage.setItem("lastLogin", new Date().toLocaleString());
+let logs = JSON.parse(localStorage.getItem("loginLogs") || "[]");
+logs.push(new Date().toISOString());
+localStorage.setItem("loginLogs", JSON.stringify(logs));
+        localStorage.setItem("role", found.role);
+        if (found.role === "admin") {
+          window.location.href = "/admin/dashboard.html";
+        } else {
+          window.location.href = "/user/home.html";
+        }
+      } else {
+        alert("Login gagal!");
+      }
+    }
+  </script>
+<div class="button-container"><div style="text-align:center;margin:10px;"><button class="btn-primary" onclick="login()">Login</button></div></div>
+</div>
+
+<script>
+  function doLogin() {
+    const email = document.getElementById("email").value;
+    const pass = document.getElementById("password").value;
+
+    const saved = JSON.parse(localStorage.getItem("user_data")) || {};
+    if (email === saved.email && pass === saved.password) {
+      const token = Math.random().toString(36).substr(2);
+      localStorage.setItem("auth_token", token);
+      alert("Login berhasil!");
+      location.href = "user/dashboard/index.html";
+    } else {
+      alert("Login gagal. Cek email dan password.");
+    }
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Statistik Admin</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body class="fade-in">
+  <section>
+    <h2>📊 Statistik Pengguna & Aktivitas</h2>
+    <canvas id="userChart" width="400" height="200"></canvas>
+  </section>
+  <script>
+    const ctx = document.getElementById('userChart').getContext('2d');
+    const chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['User', 'Post', 'Komentar', 'Login'],
+        datasets: [{
+          label: 'Jumlah',
+          data: [50, 120, 230, 40],
+          backgroundColor: ['#60a5fa', '#818cf8', '#a78bfa', '#f472b6']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: true }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profil Pengguna</title>
+  <link rel="stylesheet" href="../../style.css" />
+  <style>
+    .dark-mode { background: #111; color: #eee; }
+  </style>
+</head>
+<body class="fade-in" id="body">
+<section>
+  <h2>👤 Profil Saya</h2>
+  <img id="avatar" src="../../icon.png" width="100" style="border-radius:50%"><br/><br/>
+  <input type="file" id="uploadAvatar"><br/><br/>
+  <label>Nama:</label><br/>
+  <input type="text" id="name"><br/>
+  <label>Email:</label><br/>
+  <input type="email" id="email"><br/>
+  <label>Password:</label><br/>
+  <input type="password" id="password"><br/><br/>
+  <button onclick="saveProfile()">💾 Simpan</button>
+  <button onclick="toggleMode()">🌓 Mode Gelap/Terang</button>
+</section>
+<script>
+  const user = JSON.parse(localStorage.getItem("user_data")) || {};
+  document.getElementById("name").value = user.name || "";
+  document.getElementById("email").value = user.email || "";
+  if (user.avatar) document.getElementById("avatar").src = user.avatar;
+
+  function saveProfile() {
+    user.name = document.getElementById("name").value;
+    user.email = document.getElementById("email").value;
+    user.password = document.getElementById("password").value;
+    localStorage.setItem("user_data", JSON.stringify(user));
+    alert("Profil diperbarui!");
+  }
+
+  function toggleMode() {
+    document.getElementById("body").classList.toggle("dark-mode");
+  }
+
+  document.getElementById("uploadAvatar").addEventListener("change", function() {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById("avatar").src = e.target.result;
+      user.avatar = e.target.result;
+      localStorage.setItem("user_data", JSON.stringify(user));
+    };
+    reader.readAsDataURL(this.files[0]);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Aktivitas Saya</title>
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body class="fade-in">
+  <section>
+    <h2>📌 Aktivitas Saya</h2>
+    <ul>
+      <li>📝 Postingan saya: <span id="posts">0</span></li>
+      <li>💬 Komentar: <span id="comments">0</span></li>
+      <li>🔖 Bookmark: <span id="bookmarks">0</span></li>
+    </ul>
+  </section>
+<script>
+  const posts = JSON.parse(localStorage.getItem("user_posts") || "[]");
+  const comments = JSON.parse(localStorage.getItem("user_comments") || "[]");
+  const bookmarks = JSON.parse(localStorage.getItem("user_bookmarks") || "[]");
+
+  document.getElementById("posts").textContent = posts.length;
+  document.getElementById("comments").textContent = comments.length;
+  document.getElementById("bookmarks").textContent = bookmarks.length;
+</script>
+</body>
+</html>

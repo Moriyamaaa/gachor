@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html>
+<head><title>Export Data</title><link rel="stylesheet" href="../../style.css" /></head>
+<body class="fade-in">
+<section>
+  <h2>📂 Export & Backup Data</h2>
+  <button onclick="download()">Export JSON</button>
+</section>
+<script>
+  function download() {
+    const data = localStorage.getItem("user_data");
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "backup_user_data.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+</script>
+</body>
+</html>

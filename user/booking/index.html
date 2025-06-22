@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jadwal Konsultasi</title>
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body class="fade-in">
+<section>
+  <h2>📅 Jadwal Konsultasi</h2>
+  <form onsubmit="saveSchedule(); return false;">
+    <label>Tanggal:</label><br/>
+    <input type="date" id="date"><br/>
+    <label>Waktu:</label><br/>
+    <input type="time" id="time"><br/><br/>
+    <button type="submit">Simpan Jadwal</button>
+  </form>
+  <p id="output"></p>
+</section>
+<script>
+function saveSchedule() {
+  const schedule = {
+    date: document.getElementById("date").value,
+    time: document.getElementById("time").value
+  };
+  localStorage.setItem("user_schedule", JSON.stringify(schedule));
+  document.getElementById("output").innerText = "Jadwal disimpan: " + schedule.date + " " + schedule.time;
+}
+const jadwal = JSON.parse(localStorage.getItem("user_schedule") || "null");
+if (jadwal) {
+  document.getElementById("output").innerText = "Jadwal disimpan: " + jadwal.date + " " + jadwal.time;
+}
+</script>
+</body>
+</html>

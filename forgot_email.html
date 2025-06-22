@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>Lupa Password - Kirim Email</title>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+</head>
+<body class="fade-in" class="fade-in auth-page page-transition">
+<div class="container">
+  <h2>Reset Password via Email (EmailJS)</h2>
+  <input type="text" id="username" placeholder="Username" /><br/>
+  <input type="email" id="email" placeholder="Email Terdaftar" /><br/>
+  
+
+  <div id="otpSection" style="display:none; margin-top:20px;">
+    <input type="text" id="otpInput" placeholder="Kode OTP" /><br/>
+    <input type="password" id="newPassword" placeholder="Password baru" /><br/>
+    
+  </div>
+
+  <script>
+    <script src="/config/emailjs_config.js"></script> // Ganti dengan PUBLIC KEY dari EmailJS
+    let generatedOTP = "";
+
+    function sendEmail() {
+      const uname = document.getElementById("username").value;
+      const email = document.getElementById("email").value;
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+      const user = users.find(u => u.username === uname);
+
+      if (!user) {
+        alert("User tidak ditemukan!");
+        return;
+      }
+
+      generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+
+      const params = {
+        to_email: email,
+        to_name: uname,
+        otp_code: generatedOTP
+      };
+
+      emailjs.send(SERVICE_ID, TEMPLATE_ID, params)
+        .then(() => {
+          alert("OTP dikirim ke email!");
+          document.getElementById("otpSection").style.display = "block";
+        }, err => {
+          alert("Gagal mengirim email: " + JSON.stringify(err));
+        });
+    }
+
+    function verifyOTP() {
+      const inputOTP = document.getElementById("otpInput").value;
+      const newPass = document.getElementById("newPassword").value;
+      const uname = document.getElementById("username").value;
+      if (inputOTP !== generatedOTP) {
+        alert("OTP salah!");
+        return;
+      }
+
+      let users = JSON.parse(localStorage.getItem("users") || "[]");
+      const idx = users.findIndex(u => u.username === uname);
+      users[idx].password = newPass;
+      localStorage.setItem("users", JSON.stringify(users));
+      alert("Password berhasil direset.");
+      window.location.href = "login.html";
+    }
+  </script>
+<div class="button-container"><div style="text-align:center;margin:10px;"><button class="btn-primary" onclick="sendEmail()">Kirim OTP</button></div><div style="text-align:center;margin:10px;"><button class="btn-primary" onclick="verifyOTP()">Reset Password</button></div></div>
+</div>
+</body>
+</html>

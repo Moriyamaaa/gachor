@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Upload File</title>
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body class="fade-in">
+<section>
+  <h2>📁 Upload File / CV</h2>
+  <input type="file" id="uploadFile"><br/><br/>
+  <p id="fileInfo">Belum ada file diunggah</p>
+</section>
+<script>
+document.getElementById("uploadFile").addEventListener("change", function() {
+  const file = this.files[0];
+  if (file) {
+    localStorage.setItem("uploaded_file", file.name);
+    document.getElementById("fileInfo").innerText = "File diunggah: " + file.name;
+  }
+});
+const stored = localStorage.getItem("uploaded_file");
+if (stored) {
+  document.getElementById("fileInfo").innerText = "File diunggah: " + stored;
+}
+</script>
+</body>
+</html>

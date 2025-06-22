@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html>
+<head><title>Simulasi Kirim Email</title><link rel="stylesheet" href="../../style.css" /></head>
+<body class="fade-in">
+<section>
+  <h2>📧 Kirim Pesan ke Admin</h2>
+  <form onsubmit="sendMessage(); return false;">
+    <input type="text" id="name" placeholder="Nama Anda"/><br/><br/>
+    <input type="email" id="email" placeholder="Email Anda"/><br/><br/>
+    <textarea id="message" placeholder="Pesan..." rows="4"></textarea><br/><br/>
+    <button type="submit">Kirim</button>
+  </form>
+</section>
+<script>
+function sendMessage() {
+  const msg = {
+    name: document.getElementById('name').value,
+    email: document.getElementById('email').value,
+    message: document.getElementById('message').value,
+    time: new Date().toISOString()
+  };
+  let inbox = JSON.parse(localStorage.getItem("admin_inbox") || "[]");
+  inbox.push(msg);
+  localStorage.setItem("admin_inbox", JSON.stringify(inbox));
+  alert("Pesan terkirim (simulasi)!");
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html>
+<head><title>Log Aktivitas</title><link rel="stylesheet" href="../../style.css" /></head>
+<body class="fade-in">
+<section>
+  <h2>🧾 Log Aktivitas</h2>
+  <ul id="logs"></ul>
+</section>
+<script>
+  const logs = JSON.parse(localStorage.getItem("activity_logs") || "[]");
+  const ul = document.getElementById("logs");
+  logs.forEach(log => {
+    const li = document.createElement("li");
+    li.textContent = log;
+    ul.appendChild(li);
+  });
+</script>
+</body>
+</html>

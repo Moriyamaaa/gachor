@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Broadcast Notifikasi</title>
+</head>
+<body class="fade-in">
+  <script>
+    if (localStorage.getItem("role") !== "admin") {
+      alert("Hanya admin yang bisa mengakses!");
+      window.location.href = "/login.html";
+    }
+  </script>
+  <h2>Broadcast Notifikasi ke Semua User</h2>
+  <textarea id="notifContent" placeholder="Isi notifikasi..."></textarea><br/>
+  <div style="text-align:center;margin:10px;"><button onclick="sendNotif()">Kirim Notifikasi</button></div>
+
+  <script>
+    function sendNotif() {
+      const content = document.getElementById("notifContent").value;
+      if (!content.trim()) return alert("Isi notifikasi tidak boleh kosong!");
+
+      let notifs = JSON.parse(localStorage.getItem("notifications") || "[]");
+      notifs.push({ content: content, time: new Date().toLocaleString() });
+      localStorage.setItem("notifications", JSON.stringify(notifs));
+
+      alert("Notifikasi berhasil dikirim!");
+      document.getElementById("notifContent").value = "";
+    }
+  </script>
+</body>
+</html>

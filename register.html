@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>Register</title>
+</head>
+<body class="fade-in" class="fade-in auth-page page-transition">
+<div class="container">
+  <h2>Daftar Akun Baru</h2>
+  <input type="text" id="regUsername" placeholder="Username" /><br/>
+  <input type="password" id="regPassword" placeholder="Password" /><br/>
+  
+  <p>Sudah punya akun? <a href="login.html">Login di sini</a></p>
+
+  <script>
+    function register() {
+      const uname = document.getElementById("regUsername").value;
+      const pword = document.getElementById("regPassword").value;
+
+      let users = JSON.parse(localStorage.getItem("users") || "[]");
+      const exists = users.find(u => u.username === uname);
+
+      if (exists) {
+        alert("Username sudah digunakan.");
+        return;
+      }
+
+      users.push({ username: uname, password: pword, role: "user" });
+      localStorage.setItem("users", JSON.stringify(users));
+      alert("Registrasi berhasil! Silakan login.");
+      window.location.href = "login.html";
+    }
+  </script>
+<div class="button-container"><div style="text-align:center;margin:10px;"><button class="btn-primary" onclick="register()">Daftar</button></div></div>
+</div>
+</body>
+</html>

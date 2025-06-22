@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Daftar Admin Baru</title>
+</head>
+<body class="fade-in" class="fade-in auth-page page-transition">
+<div class="container">
+  <script>
+    const role = localStorage.getItem("role");
+    if (role !== "admin") {
+      alert("Akses hanya untuk admin.");
+      window.location.href = "/login.html";
+    }
+  </script>
+
+  <h2>Daftar Admin Baru</h2>
+  <input type="text" id="adminUsername" placeholder="Username admin baru" /><br/>
+  <input type="password" id="adminPassword" placeholder="Password" /><br/>
+  
+  <p><a href="/admin/dashboard.html">Kembali ke dashboard</a></p>
+
+  <script>
+    function registerAdmin() {
+      const uname = document.getElementById("adminUsername").value;
+      const pword = document.getElementById("adminPassword").value;
+      let users = JSON.parse(localStorage.getItem("users") || "[]");
+      const exists = users.find(u => u.username === uname);
+
+      if (exists) {
+        alert("Username sudah digunakan.");
+        return;
+      }
+
+      users.push({ username: uname, password: pword, role: "admin" });
+      localStorage.setItem("users", JSON.stringify(users));
+      alert("Admin baru berhasil ditambahkan.");
+      window.location.href = "/admin/dashboard.html";
+    }
+  </script>
+<div class="button-container"><div style="text-align:center;margin:10px;"><button class="btn-primary" onclick="registerAdmin()">Tambah Admin</button></div></div>
+</div>
+</body>
+</html>

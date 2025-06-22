@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>Reset Password via Email (Simulasi)</title>
+</head>
+<body class="fade-in" class="fade-in auth-page page-transition">
+<div class="container">
+  <h2>Lupa Password - Kirim OTP</h2>
+  <input type="text" id="fpUsername" placeholder="Username" /><br/>
+  
+
+  <div id="otpSection" style="display:none; margin-top:20px;">
+    <input type="text" id="otpInput" placeholder="Kode OTP" /><br/>
+    <input type="password" id="newPassword" placeholder="Password baru" /><br/>
+    
+  </div>
+
+  <p><a href="login.html">Kembali ke login</a></p>
+
+  <script>
+    let generatedOTP = "";
+    function sendOTP() {
+      const uname = document.getElementById("fpUsername").value;
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+      const found = users.find(u => u.username === uname);
+      if (!found) {
+        alert("Username tidak ditemukan.");
+        return;
+      }
+      generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+      console.log("OTP untuk reset password:", generatedOTP);
+      alert("OTP dikirim! (Cek konsol browser)");
+      document.getElementById("otpSection").style.display = "block";
+    }
+
+    function verifyOTP() {
+      const inputOTP = document.getElementById("otpInput").value;
+      const newPass = document.getElementById("newPassword").value;
+      const uname = document.getElementById("fpUsername").value;
+
+      if (inputOTP !== generatedOTP) {
+        alert("OTP salah!");
+        return;
+      }
+
+      let users = JSON.parse(localStorage.getItem("users") || "[]");
+      const idx = users.findIndex(u => u.username === uname);
+      users[idx].password = newPass;
+      localStorage.setItem("users", JSON.stringify(users));
+      alert("Password berhasil direset.");
+      window.location.href = "login.html";
+    }
+  </script>
+<div class="button-container"><div style="text-align:center;margin:10px;"><button class="btn-primary" onclick="sendOTP()">Kirim OTP</button></div><div style="text-align:center;margin:10px;"><button class="btn-primary" onclick="verifyOTP()">Reset Password</button></div></div>
+</div>
+</body>
+</html>
